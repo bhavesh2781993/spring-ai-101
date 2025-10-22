@@ -70,5 +70,6 @@
 	<modules>
 		<module>s01-openai-integration</module>
 		<module>s02-openai-prompt</module>
+		<module>s03-output-parser</module>
 	</modules>
 </project>
