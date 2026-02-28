@@ -1,23 +1,26 @@
-package in.digiborn.s03outputparser;
+package in.digiborn.s03outputparser.parser;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.Generation;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.converter.BeanOutputConverter;
-import org.springframework.ai.converter.MapOutputConverter;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+import in.digiborn.s03outputparser.models.Author;
+
 @RestController
-public class BeanParser {
+@RequestMapping("/bean-parser")
+public class BeanParserController {
 
     private final ChatModel chatModel;
 
-    public BeanParser(ChatModel chatModel) {
+    public BeanParserController(ChatModel chatModel) {
         this.chatModel = chatModel;
     }
 
@@ -31,8 +34,13 @@ public class BeanParser {
         BeanOutputConverter<Author> converter = new BeanOutputConverter<>(Author.class);
 
         PromptTemplate promptTemplate = new PromptTemplate(message);
-        Prompt prompt = promptTemplate.create(Map.of("author", author, "format", converter.getFormat()));
-        Generation generation = chatModel.call(prompt).getResult();
+        Prompt prompt = promptTemplate.create(
+            Map.of(
+                "author", author,
+                "format", converter.getFormat()
+            ));
+        Generation generation = chatModel.call(prompt)
+            .getResult();
         return converter.convert(generation.getOutput().getText());
     }
 

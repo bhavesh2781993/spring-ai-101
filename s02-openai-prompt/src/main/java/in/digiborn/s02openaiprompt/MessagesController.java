@@ -1,5 +1,6 @@
 package in.digiborn.s02openaiprompt;
 
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.model.ChatModel;
@@ -14,18 +15,37 @@ import java.util.List;
 @RequestMapping("/messages")
 public class MessagesController {
 
-    private final ChatModel chatModel;
+    private final ChatClient chatClient;
 
-    public MessagesController(ChatModel chatModel) {
-        this.chatModel = chatModel;
+    public MessagesController(ChatClient.Builder builder) {
+        this.chatClient = builder.build();
     }
 
-    @GetMapping
+    @GetMapping("/complex")
     public String getJoke() {
-        var systemMessage = new SystemMessage("Your primary function is to tell dad jokes. If someone asks you any other types of jokes, please tell them you only know dad jokes.");
-        var userMessage = new UserMessage("Tell me a universe joke");
+//        var systemMessage = new SystemMessage("Your primary function is to tell dad jokes. If someone asks you any other types of jokes, please tell them you only know dad jokes.");
+//        var userMessage = new UserMessage("Tell me a universe joke");
+//
+//        Prompt prompt = new Prompt(List.of(systemMessage, userMessage));
+//        return chatModel.call(prompt).getResult().getOutput().getText();
 
-        Prompt prompt = new Prompt(List.of(userMessage, systemMessage));
-        return chatModel.call(prompt).getResult().getOutput().getText();
+        return chatClient.prompt()
+            .system("Your primary function is to tell dad jokes. If someone asks you any other types of jokes, please tell them you only know dad jokes.")
+            .user("Tell me a universe joke")
+            .call()
+            .content();
+    }
+
+    @GetMapping("/simple")
+    public String getJoke1() {
+//        var userMessage = new UserMessage("Tell me a dad joke");
+//
+//        Prompt prompt = new Prompt(userMessage);
+//        return chatModel.call(prompt).getResult().getOutput().getText();
+
+        return chatClient.prompt()
+            .user("Tell me a dad joke")
+            .call()
+            .content();
     }
 }

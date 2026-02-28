@@ -71,5 +71,9 @@
 		<module>s01-openai-integration</module>
 		<module>s02-openai-prompt</module>
 		<module>s03-output-parser</module>
+		<module>s04-add-context</module>
+		<module>s05-rag</module>
+		<module>s06-rag-pgvector</module>
+		<module>s07-gpt-4o</module>
 	</modules>
 </project>

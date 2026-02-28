@@ -1,9 +1,8 @@
-spring.application.name: s03-output-parser
-
+spring.application.name: s07-gpt-4o
 spring:
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}
       chat:
         options:
-          model: gpt-3.5-turbo
+          model: gpt-4o

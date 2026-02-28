@@ -1,0 +1,1 @@
+cricket,badminton,swimming,athletics,cycling,tennis,boxing,gymnastics,wrestling,judo,rowing,sailing,archery,shooting,weightlifting,table tennis,volleyball,basketball,handball,hockey,football,rugby,taekwondo,fencing,equestrian,triathlon,marathon

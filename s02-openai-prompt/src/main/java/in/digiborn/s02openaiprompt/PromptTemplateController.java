@@ -25,16 +25,30 @@ public class PromptTemplateController {
         this.chatModel = chatModel;
     }
 
-    @GetMapping
+    @GetMapping("/message")
     public String getPopularYoutubersByGenre(@RequestParam(value = "genre", defaultValue = "tech") String genre) {
-//        var message = """
-//            list of 10 popular youtube content creators in the {genre} with their youtube channel names and subscriber counts.
-//            If you don't know the answer, just say I don't know.
-//            """;
+        var message = """
+            list of 10 popular youtube content creators in the {genre} with their youtube channel names and subscriber counts.
+            If you don't know the answer, just say I don't know.
+            """;
 
+        PromptTemplate promptTemplate = new PromptTemplate(message);
+        Prompt prompt = promptTemplate.create(Map.of("genre", genre));
+
+        return chatModel.call(prompt)
+            .getResult()
+            .getOutput()
+            .getText();
+    }
+
+    @GetMapping("/template")
+    public String getPopularYoutubersByGenreUsingTemplate(@RequestParam(value = "genre", defaultValue = "tech") String genre) {
         PromptTemplate promptTemplate = new PromptTemplate(youtubePromptTemplate);
         Prompt prompt = promptTemplate.create(Map.of("genre", genre));
 
-        return chatModel.call(prompt).getResult().getOutput().getText();
+        return chatModel.call(prompt)
+            .getResult()
+            .getOutput()
+            .getText();
     }
 }

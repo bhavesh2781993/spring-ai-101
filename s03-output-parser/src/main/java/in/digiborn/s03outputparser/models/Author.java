@@ -1,4 +1,4 @@
-package in.digiborn.s03outputparser;
+package in.digiborn.s03outputparser.models;
 
 import java.util.List;
 
