@@ -75,5 +75,6 @@
 		<module>s05-rag</module>
 		<module>s06-rag-pgvector</module>
 		<module>s07-gpt-4o</module>
+		<module>s08-ollama</module>
 	</modules>
 </project>

@@ -1,0 +1,9 @@
+spring.application.name: s08-ollama
+
+spring.ai.ollama:
+  host: http://localhost:11434
+  chat.model: minimax-m2.5:cloud
+
+weather.api:
+  key: ${WEATHER_API_KEY}
+  url: https://api.weatherapi.com/v1
